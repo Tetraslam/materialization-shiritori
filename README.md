@@ -6,10 +6,8 @@ You're the big bad boss with the ability to add or remove anything from reality 
 
 ## Tech Stack
 
-- Unity
+- Godot
 - OpenXR
-- Unity XR Toolkit
-- Unity-ML
 - Vosk (STT)
 - Meta Llama 3.1 8B Instruct (tool calling is good)
 - Model fetching: Poly Pizza API (provides free downloads)
