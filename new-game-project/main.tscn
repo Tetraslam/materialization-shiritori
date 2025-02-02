@@ -1,17 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7g5s52qsbb83"]
+[gd_scene load_steps=9 format=3 uid="uid://c7g5s52qsbb83"]
 
-[ext_resource type="Script" path="res://xrtest.gd" id="1_41n0k"]
 [ext_resource type="Script" path="res://openxr_setup.gd" id="2_1jaoa"]
+[ext_resource type="Script" path="res://movement.gd" id="2_l8u6j"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_vk10q"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_sfxis"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxw2c"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oyrwl"]
+
+[sub_resource type="Sky" id="Sky_o5f8m"]
+sky_material = SubResource("ProceduralSkyMaterial_oyrwl")
+
+[sub_resource type="Environment" id="Environment_6ye6h"]
+background_mode = 2
+background_color = Color(0, 0, 0.85098, 1)
+sky = SubResource("Sky_o5f8m")
+
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_41n0k")
+script = ExtResource("2_1jaoa")
 
 [node name="VRRoot" type="XROrigin3D" parent="."]
-script = ExtResource("2_1jaoa")
+script = ExtResource("2_l8u6j")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="VRRoot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -22,7 +35,7 @@ tracker = &"left_hand"
 show_when_tracked = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="VRRoot/RightHand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0.2)
 mesh = SubResource("SphereMesh_vk10q")
 
 [node name="LeftHand" type="XRController3D" parent="VRRoot"]
@@ -30,5 +43,13 @@ tracker = &"right_hand"
 show_when_tracked = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="VRRoot/LeftHand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0.2)
 mesh = SubResource("SphereMesh_sfxis")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="VRRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+size = Vector3(20, 0.1, 20)
+material = SubResource("StandardMaterial3D_uxw2c")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="VRRoot"]
+environment = SubResource("Environment_6ye6h")
