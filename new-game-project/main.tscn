@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7g5s52qsbb83"]
+
+[ext_resource type="Script" path="res://xrtest.gd" id="1_41n0k"]
+[ext_resource type="Script" path="res://openxr_setup.gd" id="2_1jaoa"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_vk10q"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_sfxis"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_41n0k")
+
+[node name="VRRoot" type="XROrigin3D" parent="."]
+script = ExtResource("2_1jaoa")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="VRRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+current = true
+
+[node name="RightHand" type="XRController3D" parent="VRRoot"]
+tracker = &"left_hand"
+show_when_tracked = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VRRoot/RightHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+mesh = SubResource("SphereMesh_vk10q")
+
+[node name="LeftHand" type="XRController3D" parent="VRRoot"]
+tracker = &"right_hand"
+show_when_tracked = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VRRoot/LeftHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+mesh = SubResource("SphereMesh_sfxis")
